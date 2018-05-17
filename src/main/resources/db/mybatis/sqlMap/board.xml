@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+
+	<!--회원페이지 리스트 -->
+	<select id="memberLogin" resultType="String" parameterType="HashMap">
+		SELECT mem_id
+		,mem_pass
+		FROM member
+		where mem_id = #{mem_id}
+		and mem_pass = #{mem_pass}
+	</select>
+
+	<!--부모게시판 리스트 -->
+	<select id="pboardList" resultType="pboardVo" parameterType="String">
+		SELECT *
+		FROM pboard
+		where pboard_reg_id = #{pboard_reg_id}
+	</select>
+
+	<!--부모게시판 추가 -->
+	<insert id="createPboard" parameterType="pboardVo">
+		INSERT INTO pboard (
+		pboard_seq, pboard_name, pboard_reg_id, pboard_date, pboard_del
+		) VALUES (
+		pboard_seq.NEXTVAL,
+		#{pboard_name},
+		#{pboard_reg_id},
+		sysdate,
+		#{pboard_del}
+		)
+	</insert>
+
+
+	<!-- 부모게시판 삭제 -->
+	<update id="deletePboard" parameterType="String">
+		UPDATE pboard
+		SET
+		pboard_del = 'no'
+		WHERE
+		pboard_seq =#{pboard_seq}
+	</update>
+
+	<update id="updatePboard" parameterType="String">
+		UPDATE pboard
+		SET
+		pboard_del = 'yes'
+		WHERE
+		pboard_seq =#{pboard_seq}
+	</update>
+
+	<!--부모게시판 리스트 -->
+	<select id="getBoardList" resultType="boardVo" parameterType="String">
+		SELECT *
+		FROM board
+		where pboard_seq = #{pboard_seq}
+	</select>
+	
+	<!-- 게시판 글쓰기 -->
+	<insert id="insertBoard" parameterType="boardVo">
+	INSERT INTO board (
+	    board_seq,    	pboard_seq,    	board_pseq,   	 board_title,    board_content,    board_reg_id,
+    	board_reg_dt,    board_del,    board_reply,    board_hit,    board_group
+	) VALUES (
+    	board_seq.NEXTVAL ,    #{pboard_seq},    #{board_pseq},    #{board_title},    #{board_content},    #{board_reg_id},
+	   sysdate,    'yes',    '0', 	 '0',    #{board_group}
+	)
+	</insert>
+	
+	
+	<!--게시글 가져오기-->
+	<select id="getBoardVo" resultType="boardVo" parameterType="int">
+		SELECT *
+		FROM board
+		where board_seq = #{board_seq}
+	</select>
+	
+	
+	<!--리플 가져오기-->
+	<select id="getReplyVo" resultType="replyVo" parameterType="int">
+		SELECT *
+		FROM reply
+		where reply_board_seq = #{board_seq}
+	</select>
+	
+	<insert id="replyInsert" parameterType="replyVo">
+		INSERT INTO reply (
+		    reply_seq,		    reply_board_seq,		    reply_content,		    reply_date,
+		    reply_del,		    reply_mem_id		) VALUES (
+		    reply_seq.NEXTVAL,		    #{reply_board_seq},		    #{reply_content},
+		    sysdate,		    #{reply_del},		    #{reply_mem_id}
+		)
+	</insert>
+	
+	<update id="replyDelete"  parameterType="replyVo">
+		UPDATE reply
+	    SET
+	        reply_del = #{reply_del}
+		WHERE
+	    reply_seq = #{reply_seq}
+	</update>
+	
+	
+</mapper>
