@@ -24,7 +24,7 @@
 			<!--네비  -->
 				<%@ include file="/layout/left.jsp"%>
 	
-			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<!-- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"> -->
 				<!-- 본문 -->
 				<a href="pboard.jsp">
 					<h1 class="page-header">게시판목록</h1>
@@ -32,7 +32,7 @@
 				
 				
 				<!--본문끝  -->
-			</div>
+			<!-- </div> -->
 		</div>
 	<!--바깥 본문-->
 </body>

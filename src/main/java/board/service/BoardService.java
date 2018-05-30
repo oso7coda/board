@@ -119,6 +119,11 @@ public class BoardService implements BoardServiceInf {
 	public int replyDelete(ReplyVo replyVo) {
 		return dao.replyDelete(replyVo);
 	}
+
+	@Override
+	public int boardUpdate(BoardVo boardVo) {
+		return dao.boardUpdate(boardVo);
+	}
 	
 	
 

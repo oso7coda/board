@@ -103,5 +103,13 @@
 	    reply_seq = #{reply_seq}
 	</update>
 	
+	<update id="boardUpdate"  parameterType="boardVo">
+		UPDATE board
+	    SET
+	        board_del = #{board_del}
+		WHERE
+	    board_seq = #{board_seq}
+	</update>
+	
 	
 </mapper>

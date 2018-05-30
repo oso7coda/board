@@ -34,9 +34,9 @@
 
 	<!--본문-->
 	<div class="container-fluid">
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<!-- 본문 -->
 			<div class="container">
+			<h1>게시판</h1>
 				<table class="table">
 					<thead>
 						<tr>
@@ -60,7 +60,7 @@
 							int recodeSizeperPage = 10;
 							int pageSizePerBlock =3;
 							int curBlock = 0;
-						
+							
 							if(request.getAttribute("curBlock")!=null){
 								curBlock = Integer.parseInt(request.getAttribute("curBlock").toString());
 							}
@@ -80,16 +80,23 @@
 					%>
 							<tr>
 								<td><%=boardvo.getBoard_seq() %></td>
-								<td><a class="btn-link" href="readBoard.do?board_seq=<%=boardvo.getBoard_seq() %>">
-								<%if(boardvo.getBoard_group()>0){
-									for(int j =beginNum; j<boardvo.getBoard_group(); j++){
-								%>
-									&nbsp;&nbsp;&nbsp;&nbsp;
-								<%	}//nbsp for end%>
-									└답글:
-								<%}// group if end%>
+								<%if(boardvo.getBoard_del().equals("yes")){ %>
+									<td><a class="btn-link" href="readBoard.do?board_seq=<%=boardvo.getBoard_seq() %>">
+									<%if(boardvo.getBoard_group()>0){
+										for(int j =beginNum; j<boardvo.getBoard_group(); j++){
+									%>
+										&nbsp;&nbsp;&nbsp;&nbsp;
+									<%	}//nbsp for end%>
+										└답글:
+									<%}// group if end%>
 								
-								<%=boardvo.getBoard_title() %></a></td>
+									<%=boardvo.getBoard_title() %></a></td>
+								<%}else if(boardvo.getBoard_reg_id().equals((String)session.getAttribute("mem_id"))){ %>
+									<td><a class="btn-link" href="readBoard.do?board_seq=<%=boardvo.getBoard_seq() %>">삭제된 게시글입니다.</a></td>
+								<%}else{ %>
+									<td> 삭제된 게시글입니다.</td>
+								
+								<%} %>
 								<td><%=boardvo.getBoard_reg_id() %></td>
 								<td><%=boardvo.getBoard_reg_dt() %></td>
 								<td><%=boardvo.getBoard_hit() %></td>
@@ -142,14 +149,13 @@
 					
 			
 				
+				<form action="set_qboard_seq.do" method="get">
+				<input type="hidden" name="pboard_seq" value="${pboard_seq}">
+				<button class="btn btn-default" type="submit" >글쓰기</button>
+				</form>
 			</div>
-			<form action="set_qboard_seq.do" method="get">
-			<input type="hidden" name="pboard_seq" value="${pboard_seq}">
-			<button type="submit" >글쓰기</button>
-			</form>
 			
 			<!--본문끝  -->
-		</div>
 	</div>
 	<!--바깥 본문-->
 

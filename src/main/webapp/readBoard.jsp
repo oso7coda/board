@@ -1,3 +1,4 @@
+<%@page import="board.model.BoardVo"%>
 <%@page import="board.model.ReplyVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -55,9 +56,43 @@
 				
 				</table>
 			</div>
+				<div class="container">
+					<%
+					BoardVo boardVo = (BoardVo)request.getAttribute("boardVo");
+					if(session.getAttribute("mem_id").equals(boardVo.getBoard_reg_id())){ 
+					%>
+					<table>
+					<tr>
+						<td>
+							<form action="BoardtoBoard.do" method="get?board_seq=<%=boardVo.getBoard_seq()%>?option=update">
+							<button class="btn btn-default" type="button">답글달기</button>
+							</form>
+						</td>
+						<td>
+							<form action="updateBoard.do" method="get?board_seq=<%=boardVo.getBoard_seq()%>?option=update">
+							<button class="btn btn-default" type="button">글수정</button>
+							</form>
+						</td>
+						<td>
+							<form action="updateBoard.do" method="get?board_seq=<%=boardVo.getBoard_seq()%>?board_del=<%=boardVo.getBoard_del()%>">
+							<button class="btn btn-default" type="submit">글삭제</button>
+							</form>
+						</td>
+					</tr>
+					
+					</table>
+					
+					
+					
+					
+					
+					
+					<% }%>
+				</div>
+			
 				<hr>
 				<div class="table-responsive">
-					<table class="table .table-hover">
+					<table class="table table-hover">
 						<%
 						List<ReplyVo> list = (List<ReplyVo>)request.getAttribute("replyVoList");
 						for(ReplyVo vo : list){
@@ -94,6 +129,8 @@
 						<tr>
 					</table>
 				</div>
+				
+				
 				<!--리플 입력창  -->
 				<div class="col-xs-4">
 					<form action="insertReply.do" method="post">

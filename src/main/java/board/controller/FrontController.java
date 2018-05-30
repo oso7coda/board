@@ -20,6 +20,7 @@ import command.CommandPboardDelete;
 import command.CommandPboardUpdate;
 import command.Command_set_qboard_seq;
 import command.board.CommandBoardRead;
+import command.board.CommandUpdateBoard;
 import command.reply.CommanReplyDelete;
 import command.reply.CommanReplyInsert;
 
@@ -124,6 +125,10 @@ public class FrontController extends HttpServlet {
 			comman= new CommanReplyDelete();
 			comman.excute(request, response, session);
 			viewPage = "readBoard.do";
+		}else if(com.equals("/updateBoard.do")){//리플 수정
+			comman= new CommandUpdateBoard();
+			comman.excute(request, response, session);
+			viewPage = "board.jsp";
 		}
 		
 		

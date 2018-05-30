@@ -176,6 +176,16 @@ public class BoardDao implements BoardDaoInf {
 		sqlSession.close();
 		return res;
 	}
+
+	@Override
+	public int boardUpdate(BoardVo boardVo) {
+		int res = 0;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		res = sqlSession.update("board.boardUpdate", boardVo);
+		sqlSession.commit();
+		sqlSession.close();
+		return res;
+	}
 	
 
 }

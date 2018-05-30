@@ -156,6 +156,17 @@ public interface BoardDaoInf {
 	 */
 	public int replyDelete(ReplyVo replyVo); 
 
+	/**
+	 * 
+	* Method : boardUpdate
+	* 최초작성일 : 2018. 5. 18.
+	* 작성자 : PC09
+	* 변경이력 :
+	* @param board_seq
+	* @return
+	* Method 설명 : 게시글 수정
+	 */
+	public int boardUpdate(BoardVo boardVo);
 }
 
 

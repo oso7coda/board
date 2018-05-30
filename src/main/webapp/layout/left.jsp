@@ -5,7 +5,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <div id="navbar"  class="col-sm-3 col-md-2 sidebar">
+ <div id="navbar navbar-default"  class="col-sm-3 col-md-2 sidebar">
+ 	<div class="container-fluid">
           <ul class="nav nav-sidebar">
 					<!--  class="active" -->
 					<%-- <li><a href="<%=request.getContextPath()%>/studentList">멤버 --%>
@@ -22,4 +23,5 @@
 					</c:if>
 					</c:forEach>
 				</ul>
+			</div>
 		 </div> 
